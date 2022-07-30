@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "es5",
+    "lib": ["DOM"],
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "sourceMap": true
+  },
+  "include": ["src/*"],
+}
