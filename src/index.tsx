@@ -1,19 +1,24 @@
-import React from 'react'
-import ReactDom from 'react-dom'
+import React, { Suspense } from "react";
+import ReactDom from "react-dom";
+import { Fun } from "./Fun";
+const App: React.FC = () => {
+  const [s, sb] = React.useState(2);
 
-
-
-
-
-
-const App :React.FC = () => {
-
+  const Lz = React.lazy(() => import("./d"));
   return (
-    <div>
-      app
+    <div
+      onClick={() => {
+        sb((pre) => pre + 1);
+      }}
+      style={{
+        border: "1px solid green",
+        width: 200,
+        height: 200,
+      }}
+    >
+      <Fun />
     </div>
-  )
-}
+  );
+};
 
-
-ReactDom.render(<App /> , document.getElementById('root'))
+ReactDom.render(<App />, document.getElementById("root"));
