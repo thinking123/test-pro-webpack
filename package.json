@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve",
+    "build": "rm -rf dist && webpack build",
+    "dev": "webpack serve",
     "debug": "node debug.js",
-    "dll": "webpack --config ./webpack.dll.js"
+    "prestart": "rm -rf dll && webpack --config ./webpack.dll.js"
   },
   "author": "",
   "license": "ISC",

@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import ReactDom from "react-dom";
 import { Fun } from "./Fun";
 const App: React.FC = () => {
-  const [s, sb] = React.useState(2);
+  const [s, sb] = React.useState(12);
 
   const Lz = React.lazy(() => import("./d"));
   return (
@@ -17,6 +17,7 @@ const App: React.FC = () => {
       }}
     >
       <Fun />
+      {s}
     </div>
   );
 };

@@ -1,31 +1,31 @@
+const { DllPlugin, DefinePlugin } = require("webpack");
+const path = require("path");
+const dllDeps = ["react", "react-dom", 'react-refresh/runtime'];
 
-const { DllPlugin, DefinePlugin } = require('webpack')
-const path = require('path')
-const dllDeps = [
-  "react",
-  "react-dom"
-]
-
-const outputPath = path.join(process.cwd() , 'dll')
+const outputPath = path.join(process.cwd(), "dll");
 const config = {
-  entry:{
-    library: dllDeps
+  entry: {
+    library: dllDeps,
   },
+  mode: "development",
+  // externals:{
+  //   "react-refresh/runtime":"RunTimeRefresh"
+  // },
   output: {
     path: outputPath,
-    filename: 'libs.[name].js',
+    filename: "libs.[name].js",
     library: {
-      name: '[name]_[fullhash]',
-      type: 'var',
+      name: "[name]",
+      type: "var",
     },
   },
   plugins: [
     new DllPlugin({
       entryOnly: true,
-      path: path.join(outputPath, '[name].json'),
-      name: '[name]_[fullhash]',
+      path: path.join(outputPath, "[name].json"),
+      name: "[name]",
     }),
-  ]
-}
+  ],
+};
 
-module.exports = config
+module.exports = config;
