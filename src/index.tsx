@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import ReactDom from "react-dom";
 import { Fun } from "./Fun";
 const App: React.FC = () => {
-  const [s, sb] = React.useState(12);
+  const [s, sb] = React.useState(21);
 
   const Lz = React.lazy(() => import("./d"));
   return (
@@ -13,7 +13,7 @@ const App: React.FC = () => {
       style={{
         border: "1px solid green",
         width: 200,
-        height: 200,
+        height: 2001,
       }}
     >
       <Fun />

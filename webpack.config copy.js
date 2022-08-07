@@ -10,16 +10,16 @@ const isDevelopment = true;
 const dll = false;
 const config = {
   mode: "development",
-  entry:path.join(process.cwd(), "src/index.tsx"),
+  // entry:"src/index.tsx",
   // devtool:"none",
-  // devtool: "source-map",
+  devtool: "source-map",
 
-  // entry: {
-  //   main1: path.join(process.cwd(), "src/index.tsx"),
-  // },
+  entry: {
+    main1: path.join(process.cwd(), "src/index.tsx"),
+  },
   context: process.cwd(),
   output: {
-    filename: "bundle.js",
+    filename: "bundle.[name].js",
     path: path.resolve(__dirname, "./dist"),
   },
   resolve: {
@@ -51,17 +51,36 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template:  "index.html",
+      template: dll ?  "index-dll.html" : "index.html",
     }),
     new ReactRefreshWebpackPlugin(),
-
-  ],
+    dll &&
+      new DllReferencePlugin({
+        manifest: path.resolve(process.cwd(), "dll/library.json"),
+        extensions: [".js"],
+        context: process.cwd(),
+      }),
+    dll &&
+      new ExternalsPlugin("var", {
+        "dll-reference library": "library",
+      }),
+  ].filter(Boolean),
   devServer: {
     hot: true,
- 
+    static: dll ? [
+      {
+        directory: path.join(process.cwd(), "dll"),
+        publicPath: "/",
+      },
+    ] : [],
   },
 };
 
+if(dll){
+  config.optimization ={
+    runtimeChunk: "single",
+  }
+}
 
 // exports = config
 module.exports = config;
